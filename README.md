@@ -5,4 +5,5 @@ to run:
 - put your API key in:
   ```
   APIKEY={YOUR API KEY}
+  APIENDPOINT=https://livepeer.com/api/stream
   ```
