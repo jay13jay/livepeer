@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/jay13jay/livepeer/create"
 )
 
-
 func main() {
-	newStream := create.createStream()
+	newStream := create.CreateStream()
 
-	fmt.Printf("newStream")
+	fmt.Printf("newStream:\n%s\n\n", newStream)
 
 }
