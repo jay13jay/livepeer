@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -27,7 +28,8 @@ func main() {
 	getEnv()
 	bearer := string("Bearer " + os.Getenv("APIKEY"))
 	apiEndpoint := string(os.Getenv("APIENDPOINT"))
-	fmt.Printf("apiEndpoiont:\t%s\n", apiEndpoint)
+
+	// Set up the payload to create the streams
 	data := Payload{
 		Name: "test_stream",
 		Profiles: []Profile{
@@ -64,18 +66,36 @@ func main() {
 	if err != nil {
 		// handle err
 	}
+
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", bearer)
-	fmt.Println("Printing debug information...")
-	fmt.Printf("Headers:\n%s\n", req.Header)
-	fmt.Printf("JSON:\n%s\n\n", data)
-	fmt.Printf("Payload:\n%s\n\n\n", payloadBytes)
 
-	// resp, err := http.DefaultClient.Do(req)
-	// if err != nil {
-	// 	// handle err
-	// }
-	// defer resp.Body.Close()
+	// Print some debug information to the terminal
+	fmt.Println("Printing debug information...")
+
+	var prettyJSON bytes.Buffer
+	error := json.Indent(&prettyJSON, payloadBytes, "", "\t")
+	if error != nil {
+		log.Println("JSON parse error: ", error)
+		return
+	}
+
+	log.Printf("Payload:\n%s\n\n", string(prettyJSON.Bytes()))
+	// fmt.Printf("Payload:\n%s\n\n\n", payloadBytes)
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		// handle err
+	}
+	defer resp.Body.Close()
+
+	fmt.Printf("HTTP Response:\t%d\n", int(resp.StatusCode))
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println(string(bytes))
 }
 
 func getEnv() {
