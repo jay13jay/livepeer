@@ -1,0 +1,4 @@
+github.com/jay13jay/livepeer v0.0.0-20210314033157-d00e588b247c h1:6+MnCgJCPo+HyU1FSFC6ZOuE6Lzf5ayPVTurTvlf/uw=
+github.com/jay13jay/livepeer v0.0.0-20210314033157-d00e588b247c/go.mod h1:adyg+jXTR2mA9twqV6fZUEJIFaNadbdcStSWlaYJ3+c=
+github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
+github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
